@@ -4,8 +4,11 @@ module.exports = function (app) {
 			res.send({ msg: 'Welcome' });
 		});
 
-	app.use('/auth', require('./auth-router'));
-	app.use('/user', require('./user-router'));
+	app.use('/auth', require('./master/auth-router'));
+	app.use('/user', require('./master/user-router'));
+
+	app.use('/category', require('./service/category-router'));
+	app.use('/post', require('./service/post-router'));
 
 	app.all('*', (req, res) => {
 		res.status(404).send({ msg: 'not found' });

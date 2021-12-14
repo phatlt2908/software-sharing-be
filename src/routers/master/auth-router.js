@@ -1,6 +1,6 @@
 const app = module.exports = require('express')();
 
-const {} = require('../actions').auth;
+const {} = require('../../actions/master').auth;
 
 app.post('/login', login);
 

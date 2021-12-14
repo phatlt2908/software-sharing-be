@@ -1,5 +1,5 @@
-const pool = require('../../configs/psql-connect');
-const authRepo = require('../respository/authme-repo');
+const pool = require('../../../configs/psql-connect');
+const authRepo = require('../../respository/master/authme-repo');
 const bcrypt = require('bcrypt');
 
 changePassword = async function (req, res) {

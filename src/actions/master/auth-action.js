@@ -1,8 +1,8 @@
-const pool = require('../../configs/psql-connect');
-const authRepo = require('../respository/authme-repo');
+const pool = require('../../../configs/psql-connect');
+const authRepo = require('../../respository/master/authme-repo');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const config = require('../../configs/config');
+const config = require('../../../configs/config');
 
 login = async function (req, res) {
     const loginInfo = req.body;
