@@ -17,14 +17,17 @@
 // [START drive_quickstart]
 const fs = require('fs');
 const readline = require('readline');
-const {google} = require('googleapis');
+const { google } = require('googleapis');
 
 // If modifying these scopes, delete token.json.
-const SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly'];
+const SCOPES = ['https://www.googleapis.com/auth/drive'];
 // The file token.json stores the user's access and refresh tokens, and is
 // created automatically when the authorization flow completes for the first
 // time.
 const TOKEN_PATH = 'google-token.json';
+
+// The id of parent folder store all image uploaded
+const PARENT_FOLDER = '1nmMRvS1RT9qB_cDNNtX3CqlhrICqH2Tb';
 
 // Load client secrets from a local file.
 fs.readFile('configs/drive-credentials.json', (err, content) => {
@@ -40,9 +43,9 @@ fs.readFile('configs/drive-credentials.json', (err, content) => {
  * @param {function} callback The callback to call with the authorized client.
  */
 function authorize(credentials, callback) {
-  const {client_secret, client_id, redirect_uris} = credentials.web;
+  const { client_secret, client_id, redirect_uris } = credentials.web;
   const oAuth2Client = new google.auth.OAuth2(
-      client_id, client_secret, redirect_uris[0]);
+    client_id, client_secret, redirect_uris[0]);
 
   // Check if we have previously stored a token.
   fs.readFile(TOKEN_PATH, (err, token) => {
@@ -88,7 +91,7 @@ function getAccessToken(oAuth2Client, callback) {
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
 function listFiles(auth) {
-  const drive = google.drive({version: 'v3', auth});
+  const drive = google.drive({ version: 'v3', auth });
   drive.files.list({
     pageSize: 10,
     fields: 'nextPageToken, files(id, name)',
@@ -107,7 +110,57 @@ function listFiles(auth) {
 }
 // [END drive_quickstart]
 
+function uploadFile(file, res, callback) {
+  var auth;
+  var credentials;
+
+  // Load client secrets from a local file.
+  fs.readFile('configs/drive-credentials.json', (err, content) => {
+    if (err) return console.log('Error loading client secret file:', err);
+    // Authorize a client with credentials, then call the Google Drive API.
+    credentials = JSON.parse(content);
+
+    const { client_secret, client_id, redirect_uris } = credentials.web;
+    const oAuth2Client = new google.auth.OAuth2(
+      client_id, client_secret, redirect_uris[0]);
+
+    // Check if we have previously stored a token.
+    fs.readFile(TOKEN_PATH, (err, token) => {
+      // if (err) return getAccessToken(oAuth2Client, callback);
+      oAuth2Client.setCredentials(JSON.parse(token));
+      auth = oAuth2Client;
+
+      const drive = google.drive({ version: 'v3', auth });
+
+      const fileMetadata = {
+        name: file.originalname,
+        parents: [PARENT_FOLDER]
+      };
+      const media = {
+        mimeType: file.mimetype,
+        body: fs.createReadStream(file.path)
+      };
+
+      drive.files.create({
+        resource: fileMetadata,
+        media: media,
+        fields: 'id'
+      }, (err, fileUploaded) => {
+        if (err) {
+          console.error(err);
+        } else {
+          callback(res, {
+            imageId: fileUploaded.data.id,
+            fileName: file.originalname
+          });
+        }
+      });
+    });
+  });
+}
+
 module.exports = {
   SCOPES,
   listFiles,
+  uploadFile
 };

@@ -8,7 +8,7 @@ getCategoryPulldown = async function (req, res) {
             categoryList: categoryList.rows
         });
     } catch (err) {
-        console.error("Change password failed: ", err);
+        console.error("load category pulldown failed: ", err);
         res.status(400).send({ mes: err });
     }
 }
