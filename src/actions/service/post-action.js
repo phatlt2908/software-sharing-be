@@ -54,6 +54,29 @@ loadDetail = async function (req, res) {
     }
 }
 
+getPopularCategoryPostList = async function (req, res) {
+    const categoryCode = req.query.categoryCode;
+
+    // check required
+    if (!categoryCode) {
+        return res.status(400).send({ mes: 'Input invalid' });
+    }
+
+    try {
+        console.log("categoryCode >>> ", categoryCode);
+        const sqlResult = await pool.query(postRepo.POPULAR_CATEGORY_POST, [categoryCode]);
+        const postList = sqlResult.rows;
+
+        res.status(200).send({
+            postList: postList
+        });
+    } catch (err) {
+        console.error("Load popular post list fail: ", err);
+        res.status(400).send({ mes: err });
+    }
+}
+
 module.exports = {
-    loadDetail
+    loadDetail,
+    getPopularCategoryPostList
 }
