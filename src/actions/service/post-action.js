@@ -63,7 +63,6 @@ getPopularCategoryPostList = async function (req, res) {
     }
 
     try {
-        console.log("categoryCode >>> ", categoryCode);
         const sqlResult = await pool.query(postRepo.POPULAR_CATEGORY_POST, [categoryCode]);
         const postList = sqlResult.rows;
 
@@ -76,7 +75,37 @@ getPopularCategoryPostList = async function (req, res) {
     }
 }
 
+getNewestCategoryPostList = async function (req, res) {
+    const categoryCode = req.body.categoryCode;
+    const itemsPerPage = req.body.itemsPerPage || 10;
+    const page = req.body.page || 1;
+
+    // check required
+    if (!categoryCode) {
+        return res.status(400).send({ mes: 'Input invalid' });
+    }
+
+    try {
+        const sqlPostListResult = await pool.query(postRepo.NEW_CATEGORY_POST, [categoryCode, itemsPerPage, (page - 1) * itemsPerPage]);
+        const postList = sqlPostListResult.rows;
+
+        const sqlCount = await pool.query(postRepo.COUNT_CATEGORY_POST, [categoryCode]);
+        const count = sqlCount.rows[0].count;
+
+        res.status(200).send({
+            postList: postList,
+            itemsPerPage: itemsPerPage,
+            page: page,
+            totalPost: count
+        });
+    } catch (err) {
+        console.error("Load newest post list fail: ", err);
+        res.status(400).send({ mes: err });
+    }
+}
+
 module.exports = {
     loadDetail,
-    getPopularCategoryPostList
+    getPopularCategoryPostList,
+    getNewestCategoryPostList
 }
