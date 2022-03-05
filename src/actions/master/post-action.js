@@ -24,6 +24,9 @@ save = async function (req, res) {
         // Save link by post id
         linkDownloadFunction.saveLinkDownloadByPostId(request.linkDownload, postId);
 
+        // Save banner image
+        saveBannerImage(postId, request.imgUrl, request.code);
+
         res.status(200).send();
     } catch (err) {
         console.error("Save post failed: ", err);
@@ -80,6 +83,17 @@ saveImage = function (res, file) {
         url: imageUrl
     }
     res.status(200).send(result);
+}
+
+saveBannerImage = async function (postId, imgUrl, alt) {
+    // Get all link existed before register new
+    await pool.query(postRepo.DELETE_BANNER_IMAGE, [postId]);
+
+    try {
+        await pool.query(postRepo.SAVE_BANNER_IMAGE, [postId, imgUrl, alt]);
+    } catch (err) {
+        console.error("save banner image failed: ", err);
+    }
 }
 
 module.exports = {
