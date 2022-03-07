@@ -104,8 +104,24 @@ getNewestCategoryPostList = async function (req, res) {
     }
 }
 
+updateReadNum = async function (req, res) {
+    const postCode = req.query.postCode;
+
+    try {
+        await pool.query(postRepo.UPDATE_READ_NUM, [postCode]);
+
+        res.status(200).send({
+            mes: "Update success!"
+        });
+    } catch (err) {
+        console.error("Update read num fail: ", err);
+        res.status(400).send({ mes: err });
+    }
+}
+
 module.exports = {
     loadDetail,
     getPopularCategoryPostList,
-    getNewestCategoryPostList
+    getNewestCategoryPostList,
+    updateReadNum
 }

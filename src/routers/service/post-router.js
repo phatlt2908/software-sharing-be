@@ -1,7 +1,8 @@
 const app = module.exports = require('express')();
 
-const { loadDetail, getPopularCategoryPostList, getNewestCategoryPostList } = require('../../actions/service').post;
+const { loadDetail, getPopularCategoryPostList, getNewestCategoryPostList, updateReadNum } = require('../../actions/service').post;
 
 app.get('/detail', loadDetail);
 app.get('/popular-category-post', getPopularCategoryPostList);
 app.post('/newest-category-post', getNewestCategoryPostList);
+app.get('/update-read-num', updateReadNum);
