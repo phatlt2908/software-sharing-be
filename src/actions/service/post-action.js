@@ -23,6 +23,7 @@ loadDetail = async function (req, res) {
             id: rawPost.id,
             code: rawPost.code,
             categoryCode: rawPost.category_code,
+            name: rawPost.name,
             title: rawPost.title,
             description: rawPost.description,
             content: rawPost.content,
