@@ -5,7 +5,6 @@ const linkDownloadRepo = require('../../respository/service/link-download-repo')
 getLinkDownloadByPostId = async function (postId) {
     try {
         const links = await pool.query(linkDownloadRepo.GET_LINK_DOWNLOAD, [postId]);
-        console.log("links.rows >>> ", links.rows);
         return links.rows;
     } catch (err) {
         console.error("load download link failed: ", err);

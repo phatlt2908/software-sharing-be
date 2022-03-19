@@ -12,6 +12,7 @@ module.exports = function (app) {
 
 	app.use('/category', require('./service/category-router'));
 	app.use('/post', require('./service/post-router'));
+	app.use('/tag', require('./service/tag-router'));
 
 	app.all('*', (req, res) => {
 		res.status(404).send({ msg: 'not found' });

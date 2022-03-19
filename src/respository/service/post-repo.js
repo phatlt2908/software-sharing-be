@@ -26,4 +26,21 @@ module.exports = {
         `UPDATE post
         SET read_num = read_num + 1
         WHERE post.code = $1`,
+    SEARCH_POST:
+        `SELECT post.id as id, post.code as "code", post.title as "title", post.description as "description", 
+            post.created_date as "createdDate", post.read_num as "readNum", image.url as "imageUrl", image.name as "imageAlt"
+        FROM post
+        LEFT JOIN post_image image 
+            ON image.post_id = post.id 
+        WHERE LOWER(post.title) LIKE '%' || LOWER($1) || '%'
+            OR LOWER(post.description) LIKE '%' || LOWER($1) || '%'
+            OR LOWER(post.name) LIKE '%' || LOWER($1) || '%'
+        ORDER BY read_num DESC, created_date DESC
+        LIMIT $2 OFFSET $3`,
+    COUNT_SEARCH_POST:
+        `SELECT COUNT(post.id) as count
+        FROM post
+        WHERE LOWER(post.title) LIKE '%' || LOWER($1) || '%'
+            OR LOWER(post.description) LIKE '%' || LOWER($1) || '%'
+            OR LOWER(post.name) LIKE '%' || LOWER($1) || '%'`
 }

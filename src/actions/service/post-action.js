@@ -1,5 +1,6 @@
 const pool = require('../../../configs/psql-connect');
 const postRepo = require('../../respository/service/post-repo');
+const tagRepo = require('../../respository/service/tag-repo');
 const linkDownloadFunction = require('../../actions/service/link-download-action');
 
 loadDetail = async function (req, res) {
@@ -120,9 +121,40 @@ updateReadNum = async function (req, res) {
     }
 }
 
+searchPostList = async function (req, res) {
+    const keyword = req.body.keyword;
+    const itemsPerPage = req.body.itemsPerPage || 10;
+    const page = req.body.page || 1;
+
+    try {
+        const sqlPostListResult = await pool.query(postRepo.SEARCH_POST, [keyword, itemsPerPage, (page - 1) * itemsPerPage]);
+        const postList = sqlPostListResult.rows;
+
+        const sqlCount = await pool.query(postRepo.COUNT_SEARCH_POST, [keyword]);
+        const count = sqlCount.rows[0].count;
+
+        try {
+            await pool.query(tagRepo.UPDATE_COUNT, [keyword]);
+        } catch (error) {
+            console.log("update tag count error: ", error);
+        }
+
+        res.status(200).send({
+            postList: postList,
+            itemsPerPage: itemsPerPage,
+            page: page,
+            totalPost: count
+        });
+    } catch (err) {
+        console.error("Search post list fail: ", err);
+        res.status(400).send({ mes: err });
+    }
+}
+
 module.exports = {
     loadDetail,
     getPopularCategoryPostList,
     getNewestCategoryPostList,
-    updateReadNum
+    updateReadNum,
+    searchPostList
 }
