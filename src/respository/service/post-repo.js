@@ -35,6 +35,7 @@ module.exports = {
         WHERE LOWER(post.title) LIKE '%' || LOWER($1) || '%'
             OR LOWER(post.description) LIKE '%' || LOWER($1) || '%'
             OR LOWER(post.name) LIKE '%' || LOWER($1) || '%'
+            OR LOWER(post.content) LIKE '%' || LOWER($1) || '%'
         ORDER BY read_num DESC, created_date DESC
         LIMIT $2 OFFSET $3`,
     COUNT_SEARCH_POST:
@@ -42,5 +43,6 @@ module.exports = {
         FROM post
         WHERE LOWER(post.title) LIKE '%' || LOWER($1) || '%'
             OR LOWER(post.description) LIKE '%' || LOWER($1) || '%'
-            OR LOWER(post.name) LIKE '%' || LOWER($1) || '%'`
+            OR LOWER(post.name) LIKE '%' || LOWER($1) || '%'
+            OR LOWER(post.content) LIKE '%' || LOWER($1) || '%'`
 }
