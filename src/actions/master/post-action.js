@@ -15,9 +15,9 @@ save = async function (req, res) {
         let postId;
         let sqlRes
         if (post.rows.length) {
-            sqlRes = await pool.query(postRepo.UPDATE, [request.code, request.categoryCode, request.title, request.description, new Date(), request.content, request.id]);
+            sqlRes = await pool.query(postRepo.UPDATE, [request.code, request.name, request.categoryCode, request.title, request.description, new Date(), request.content, request.id]);
         } else {
-            sqlRes = await pool.query(postRepo.INSERT, [request.code, request.categoryCode, request.title, request.description, request.content, new Date(), new Date()]);
+            sqlRes = await pool.query(postRepo.INSERT, [request.code, request.name, request.categoryCode, request.title, request.description, request.content, new Date(), new Date()]);
         }
         postId = sqlRes.rows[0].id;
 
@@ -43,6 +43,7 @@ loadDetail = async function (req, res) {
         const post = {
             id: rawPost.id,
             code: rawPost.code,
+            name: rawPost.name,
             categoryCode: rawPost.category_code,
             title: rawPost.title,
             description: rawPost.description,
