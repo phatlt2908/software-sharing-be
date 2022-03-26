@@ -106,6 +106,28 @@ getNewestCategoryPostList = async function (req, res) {
     }
 }
 
+getRelationCategoryPostList = async function (req, res) {
+    const categoryCode = req.query.categoryCode;
+    const postCode = req.query.postCode;
+
+    // check required
+    if (!categoryCode) {
+        return res.status(400).send({ mes: 'Input invalid' });
+    }
+
+    try {
+        const sqlResult = await pool.query(postRepo.RELATION_CATEGORY_POST, [categoryCode, postCode]);
+        const postList = sqlResult.rows;
+
+        res.status(200).send({
+            postList: postList
+        });
+    } catch (err) {
+        console.error("Load popular post list fail: ", err);
+        res.status(400).send({ mes: err });
+    }
+}
+
 updateReadNum = async function (req, res) {
     const postCode = req.query.postCode;
 
@@ -155,6 +177,7 @@ module.exports = {
     loadDetail,
     getPopularCategoryPostList,
     getNewestCategoryPostList,
+    getRelationCategoryPostList,
     updateReadNum,
     searchPostList
 }
