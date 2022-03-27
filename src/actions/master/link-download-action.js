@@ -20,7 +20,7 @@ saveLinkDownloadByPostId = async function (links, postId) {
 
     let values = [];
     links.forEach(link => {
-        values.push([postId, link.type, link.url]);
+        values.push([postId, link.type, link.url, link.name]);
     });
     try {
         await pool.query(format(linkDownloadRepo.SAVE_LINK_DOWNLOAD, values));

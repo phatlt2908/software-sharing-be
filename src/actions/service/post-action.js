@@ -42,6 +42,7 @@ loadDetail = async function (req, res) {
                 typeCode: rawLink.type_code,
                 typeName: rawLink.type_name,
                 url: rawLink.url,
+                name: rawLink.name,
                 isWaiting: rawLink.is_wating
             })
         });
