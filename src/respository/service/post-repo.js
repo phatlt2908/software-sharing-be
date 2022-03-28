@@ -53,5 +53,21 @@ module.exports = {
         WHERE LOWER(post.title) LIKE '%' || LOWER($1) || '%'
             OR LOWER(post.description) LIKE '%' || LOWER($1) || '%'
             OR LOWER(post.name) LIKE '%' || LOWER($1) || '%'
-            OR LOWER(post.content) LIKE '%' || LOWER($1) || '%'`
+            OR LOWER(post.content) LIKE '%' || LOWER($1) || '%'`,
+    POPULAR_POST:
+        `SELECT post.id as id, post.code as "code", post.title as "title", post.description as "description", 
+            post.created_date as "createdDate", post.read_num as "readNum", image.url as "imageUrl", image.name as "imageAlt"
+        FROM post
+        LEFT JOIN post_image image 
+            ON image.post_id = post.id
+        ORDER BY read_num DESC
+        LIMIT 5`,
+    NEW_POST:
+        `SELECT post.id as id, post.code as "code", post.title as "title", post.description as "description", 
+            post.created_date as "createdDate", post.read_num as "readNum", image.url as "imageUrl", image.name as "imageAlt"
+        FROM post
+        LEFT JOIN post_image image 
+            ON image.post_id = post.id
+        ORDER BY created_date DESC
+        LIMIT 5`,
 }

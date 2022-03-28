@@ -174,11 +174,41 @@ searchPostList = async function (req, res) {
     }
 }
 
+getPopularPostList = async function (req, res) {
+    try {
+        const sqlResult = await pool.query(postRepo.POPULAR_POST);
+        const postList = sqlResult.rows;
+
+        res.status(200).send({
+            postList: postList
+        });
+    } catch (err) {
+        console.error("Load popular post list fail: ", err);
+        res.status(400).send({ mes: err });
+    }
+}
+
+getNewestPostList = async function (req, res) {
+    try {
+        const sqlPostListResult = await pool.query(postRepo.NEW_POST);
+        const postList = sqlPostListResult.rows;
+
+        res.status(200).send({
+            postList: postList
+        });
+    } catch (err) {
+        console.error("Load newest post list fail: ", err);
+        res.status(400).send({ mes: err });
+    }
+}
+
 module.exports = {
     loadDetail,
     getPopularCategoryPostList,
     getNewestCategoryPostList,
     getRelationCategoryPostList,
     updateReadNum,
-    searchPostList
+    searchPostList,
+    getPopularPostList,
+    getNewestPostList
 }
