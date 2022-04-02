@@ -29,7 +29,7 @@ save = async function (req, res) {
 
         res.status(200).send();
     } catch (err) {
-        console.error("Save post failed: ", err);
+        console.error("Save post failed:", err);
         res.status(400).send({ mes: err });
     }
 }
@@ -61,7 +61,7 @@ loadDetail = async function (req, res) {
             links: links
         });
     } catch (err) {
-        console.error("Save post failed: ", err);
+        console.error("Save post failed:", err);
         res.status(400).send({ mes: err });
     }
 }
@@ -70,7 +70,7 @@ uploadImage = async function (req, res) {
     try {
         drive.uploadFile(req.file, res, saveImage);
     } catch (err) {
-        console.error("upload image failed: ", err);
+        console.error("upload image failed:", err);
         res.status(400).send({ mes: err });
     }
 }
@@ -93,7 +93,7 @@ saveBannerImage = async function (postId, imgUrl, alt) {
     try {
         await pool.query(postRepo.SAVE_BANNER_IMAGE, [postId, imgUrl, alt]);
     } catch (err) {
-        console.error("save banner image failed: ", err);
+        console.error("save banner image failed:", err);
     }
 }
 

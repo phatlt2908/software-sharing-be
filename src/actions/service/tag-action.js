@@ -8,7 +8,7 @@ getTagList = async function (req, res) {
 
         res.status(200).send(sqlTagList.rows);
     } catch (err) {
-        console.error("load tag list failed: ", err);
+        console.error("load tag list failed:", err);
     }
 }
 

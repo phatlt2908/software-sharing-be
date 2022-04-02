@@ -37,7 +37,7 @@ changePassword = async function (req, res) {
 
         res.status(200).send({ mes: "Change password successfully" });
     } catch (err) {
-        console.error("Change password failed: ", err);
+        console.error("Change password failed:", err);
         res.status(400).send({ mes: err });
     }
 }

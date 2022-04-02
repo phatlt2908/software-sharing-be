@@ -48,7 +48,7 @@ login = async function (req, res) {
             token: token
         });
     } catch (err) {
-        console.error("Login failed: ", err);
+        console.error("Login failed:", err);
         res.status(400).send({ mes: err });
     }
 }
@@ -102,7 +102,7 @@ checkUsername = async function (req, res) {
 
         res.status(200).send({ isExist: isExist });
     } catch (err) {
-        console.error("Can not check this username: ", err);
+        console.error("Can not check this username:", err);
         res.status(400).send({ mes: "Can not check this username" });
     }
 }
@@ -117,7 +117,7 @@ checkEmail = async function (req, res) {
 
         res.status(200).send({ isExist: isExist });
     } catch (err) {
-        console.error("Can not check this email: ", err);
+        console.error("Can not check this email:", err);
         res.status(400).send({ mes: "Can not check this email" });
     }
 }

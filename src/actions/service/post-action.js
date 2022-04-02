@@ -52,7 +52,7 @@ loadDetail = async function (req, res) {
             links: links
         });
     } catch (err) {
-        console.error("Load post detail fail: ", err);
+        console.error("Load post detail fail:", err);
         res.status(400).send({ mes: err });
     }
 }
@@ -73,7 +73,7 @@ getPopularCategoryPostList = async function (req, res) {
             postList: postList
         });
     } catch (err) {
-        console.error("Load popular post list fail: ", err);
+        console.error("Load popular post list fail:", err);
         res.status(400).send({ mes: err });
     }
 }
@@ -102,7 +102,7 @@ getNewestCategoryPostList = async function (req, res) {
             totalPost: count
         });
     } catch (err) {
-        console.error("Load newest post list fail: ", err);
+        console.error("Load newest post list fail:", err);
         res.status(400).send({ mes: err });
     }
 }
@@ -124,7 +124,7 @@ getRelationCategoryPostList = async function (req, res) {
             postList: postList
         });
     } catch (err) {
-        console.error("Load popular post list fail: ", err);
+        console.error("Load popular post list fail:", err);
         res.status(400).send({ mes: err });
     }
 }
@@ -139,7 +139,7 @@ updateReadNum = async function (req, res) {
             mes: "Update success!"
         });
     } catch (err) {
-        console.error("Update read num fail: ", err);
+        console.error("Update read num fail:", err);
         res.status(400).send({ mes: err });
     }
 }
@@ -159,7 +159,7 @@ searchPostList = async function (req, res) {
         try {
             await pool.query(tagRepo.UPDATE_COUNT, [keyword]);
         } catch (error) {
-            console.log("update tag count error: ", error);
+            console.log("update tag count error:", error);
         }
 
         res.status(200).send({
@@ -169,7 +169,7 @@ searchPostList = async function (req, res) {
             totalPost: count
         });
     } catch (err) {
-        console.error("Search post list fail: ", err);
+        console.error("Search post list fail:", err);
         res.status(400).send({ mes: err });
     }
 }
@@ -183,7 +183,7 @@ getPopularPostList = async function (req, res) {
             postList: postList
         });
     } catch (err) {
-        console.error("Load popular post list fail: ", err);
+        console.error("Load popular post list fail:", err);
         res.status(400).send({ mes: err });
     }
 }
@@ -197,7 +197,7 @@ getNewestPostList = async function (req, res) {
             postList: postList
         });
     } catch (err) {
-        console.error("Load newest post list fail: ", err);
+        console.error("Load newest post list fail:", err);
         res.status(400).send({ mes: err });
     }
 }

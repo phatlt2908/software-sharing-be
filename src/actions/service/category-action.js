@@ -21,7 +21,7 @@ getCategoryDetail = async function (req, res) {
 
         res.status(200).send(category);
     } catch (err) {
-        console.error("Load category detail fail: ", err);
+        console.error("Load category detail fail:", err);
         res.status(400).send({ mes: err });
     }
 }
