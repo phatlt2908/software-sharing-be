@@ -176,7 +176,10 @@ searchPostList = async function (req, res) {
 
 getPopularPostList = async function (req, res) {
     try {
-        const sqlResult = await pool.query(postRepo.POPULAR_POST);
+        const itemsPerPage = req.body.itemsPerPage || 10;
+        const page = req.body.page || 1;
+
+        const sqlResult = await pool.query(postRepo.POPULAR_POST, [itemsPerPage, (page - 1) * itemsPerPage]);
         const postList = sqlResult.rows;
 
         res.status(200).send({

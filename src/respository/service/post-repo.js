@@ -61,7 +61,7 @@ module.exports = {
         LEFT JOIN post_image image 
             ON image.post_id = post.id
         ORDER BY read_num DESC
-        LIMIT 5`,
+        LIMIT $1 OFFSET $2`,
     NEW_POST:
         `SELECT post.id as id, post.code as "code", post.title as "title", post.description as "description", 
             post.created_date as "createdDate", post.read_num as "readNum", image.url as "imageUrl", image.name as "imageAlt"

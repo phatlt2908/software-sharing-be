@@ -17,5 +17,5 @@ app.post('/newest-category-post', getNewestCategoryPostList);
 app.get('/relation-category-post', getRelationCategoryPostList);
 app.get('/update-read-num', updateReadNum);
 app.post('/search-post', searchPostList);
-app.get('/popular-post', getPopularPostList);
+app.post('/popular-post', getPopularPostList);
 app.get('/newest-post', getNewestPostList);
