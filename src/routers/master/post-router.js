@@ -3,6 +3,7 @@ const app = module.exports = require('express')();
 const {
     save,
     uploadImage,
+    loadList,
     loadDetail
 } = require('../../actions/master').post;
 
@@ -12,5 +13,6 @@ const upload = multer({ dest: 'uploads/' });
 // app.use(checkToken);
 
 app.post('/save', save);
+app.post('/list', loadList);
 app.post('/detail', loadDetail);
 app.post('/upload-image', upload.single('upload'), uploadImage);

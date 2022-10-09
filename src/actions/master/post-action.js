@@ -34,6 +34,20 @@ save = async function (req, res) {
     }
 }
 
+loadList = async function (req, res) {
+    try {
+        const categoryCode = req.body.categoryCode;
+
+        const listSqlResult = await pool.query(postRepo.GET_LIST, [categoryCode]);
+        const postList = listSqlResult.rows;
+
+        res.status(200).send(postList);
+    } catch (err) {
+        console.error("Get post list failed:", err);
+        res.status(400).send({ mes: err });
+    }
+}
+
 loadDetail = async function (req, res) {
     try {
         const postCode = req.body.postCode;
@@ -100,5 +114,6 @@ saveBannerImage = async function (postId, imgUrl, alt) {
 module.exports = {
     save,
     uploadImage,
+    loadList,
     loadDetail
 }
