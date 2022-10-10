@@ -1,5 +1,5 @@
 const pool = require('../../../configs/psql-connect');
-const authRepo = require('../../respository/master/authme-repo');
+const authRepo = require('../../respository/master/auth-repo');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('../../../configs/config');
@@ -76,11 +76,8 @@ register = async function (req, res) {
 
         let queryParams = [
             user.username.toLowerCase(),
-            user.username.toLowerCase(),
             user.password,
-            user.regDate,
-            user.regIp,
-            user.world,
+            user.name,
             user.email.toLowerCase()
         ];
 
