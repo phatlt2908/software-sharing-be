@@ -14,6 +14,11 @@ save = async function (req, res) {
       request.code,
     ]);
 
+    request.content = request.content.replace(
+      '<img src="https://drive.google.com"',
+      '<img referrerpolicy="no-referrer" src="https://drive.google.com"'
+    );
+
     // Save post and return id to save links and images
     let postId = request.id;
     if (post.rows.length) {
