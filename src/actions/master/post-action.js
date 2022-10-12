@@ -15,8 +15,8 @@ save = async function (req, res) {
     ]);
 
     request.content = request.content.replace(
-      '<img src="https://drive.google.com"',
-      '<img referrerpolicy="no-referrer" src="https://drive.google.com"'
+      '<img src="https://drive.google.com',
+      '<img referrerpolicy="no-referrer" src="https://drive.google.com'
     );
 
     // Save post and return id to save links and images
