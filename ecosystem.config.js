@@ -1,22 +1,27 @@
 module.exports = {
   apps : [{
+    name: 'dayne-be',
     script: 'index.js',
-    watch: '.'
-  }, {
-    script: './service-worker/',
-    watch: ['./service-worker']
+    max_memory_restart: '1G',
+    cron_restart: '0 */24 * * *',
+    watch: '.',
+    ignore_watch: ['node_modules'],
+    watch_delay: 1000,
+    exp_backoff_restart_delay: 100,
+    max_restarts: 16,
+    min_uptime: 5000
   }],
 
-  deploy : {
-    production : {
-      user : 'SSH_USERNAME',
-      host : 'SSH_HOSTMACHINE',
-      ref  : 'origin/master',
-      repo : 'GIT_REPOSITORY',
-      path : 'DESTINATION_PATH',
-      'pre-deploy-local': '',
-      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production',
-      'pre-setup': ''
-    }
-  }
+  // deploy : {
+  //   production : {
+  //     user : 'phatlt2908',
+  //     host : 'localhost',
+  //     ref  : 'origin/master',
+  //     repo : 'git@github.com:phatlt2908/software-sharing-be.git',
+  //     // path : 'DESTINATION_PATH',
+  //     'pre-deploy-local': '',
+  //     'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production',
+  //     'pre-setup': ''
+  //   }
+  // }
 };
