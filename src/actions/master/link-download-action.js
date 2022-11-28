@@ -9,7 +9,7 @@ getLinkDownloadTypePulldown = async function (req, res) {
             linkDownloadTypeList: typeList.rows
         });
     } catch (err) {
-        console.error("load link download type pulldown failed:", err);
+        console.error("Load link download type pulldown failed:", err);
         res.status(400).send({ mes: err });
     }
 }
@@ -25,7 +25,7 @@ saveLinkDownloadByPostId = async function (links, postId) {
     try {
         await pool.query(format(linkDownloadRepo.SAVE_LINK_DOWNLOAD, values));
     } catch (err) {
-        console.error("save download link failed:", err);
+        console.error("Save download link failed:", err);
     }
 }
 
@@ -34,7 +34,7 @@ getLinkDownloadByPostId = async function (postId) {
         const links = await pool.query(linkDownloadRepo.GET_LINK_DOWNLOAD, [postId]);
         return links.rows;
     } catch (err) {
-        console.error("save download link failed:", err);
+        console.error("Save download link failed:", err);
     }
 }
 
