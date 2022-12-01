@@ -4,9 +4,9 @@ module.exports = {
     script: 'index.js',
     max_memory_restart: '1G',
     cron_restart: '0 */24 * * *',
-    watch: '.',
-    ignore_watch: ['node_modules'],
-    watch_delay: 1000,
+    // watch: '.',
+    // ignore_watch: ['node_modules'],
+    // watch_delay: 1000,
     exp_backoff_restart_delay: 100,
     max_restarts: 16,
     min_uptime: 5000
