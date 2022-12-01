@@ -1,0 +1,18 @@
+pipeline {
+  agent any
+  stages {
+    stage('Build') { 
+      steps {
+        sh 'npm -v'
+        sh 'rm -rf node_modules package-lock.json'
+        sh 'npm install'
+      }
+    }
+    stage('Deploy') { 
+      steps {
+        sh "chmod +x -R ${env.WORKSPACE}"
+        sh './jenkins/scripts/deploy.sh'
+      }
+    }
+  }
+}
