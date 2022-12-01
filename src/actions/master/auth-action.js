@@ -47,6 +47,7 @@ login = async function (req, res) {
       email: user.email,
     };
 
+    console.log("Login success: ", user.username);
     res.status(200).send({
       user: userRes,
       token: token,
