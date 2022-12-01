@@ -8,11 +8,5 @@ pipeline {
         sh 'npm install'
       }
     }
-    stage('Deploy') { 
-      steps {
-        sh "chmod +x -R ${env.WORKSPACE}"
-        sh './jenkins/scripts/deploy.sh'
-      }
-    }
   }
 }
