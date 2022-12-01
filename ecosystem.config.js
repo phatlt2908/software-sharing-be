@@ -7,6 +7,7 @@ module.exports = {
     watch: '.',
     ignore_watch: ['node_modules', 'package-lock.json'],
     watch_delay: 1000,
+    restart_delay: 20000,
     exp_backoff_restart_delay: 100,
     max_restarts: 16,
     min_uptime: 5000

@@ -16,7 +16,7 @@ changePassword = async function (req, res) {
 
         // Check exist username
         if (!userSqlResult.rows.length) {
-            throw "Username not found";
+            throw "Username not found.";
         }
 
         const user = userSqlResult.rows[0];
@@ -24,7 +24,7 @@ changePassword = async function (req, res) {
         // Check password
         const isMatch = bcrypt.compareSync(request.oldPassword, user.password);
         if (!isMatch) {
-            throw "Password incorrect";
+            throw "Password incorrect.";
         }
 
         // Generate new password
@@ -35,7 +35,7 @@ changePassword = async function (req, res) {
         // Update DB
         pool.query(authRepo.UPDATE_PASSWORD, [user.username, user.password]);
 
-        res.status(200).send({ mes: "Change password successfully" });
+        res.status(200).send({ mes: "Change password successfully." });
     } catch (err) {
         console.error("Change password failed:", err);
         res.status(400).send({ mes: err });
