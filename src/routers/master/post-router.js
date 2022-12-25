@@ -10,9 +10,10 @@ const {
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 
+app.post('/upload-image', upload.single('upload'), uploadImage);
+
 app.use(checkToken);
 
 app.post('/save', save);
 app.post('/list', loadList);
 app.post('/detail', loadDetail);
-app.post('/upload-image', upload.single('upload'), uploadImage);
