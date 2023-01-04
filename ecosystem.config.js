@@ -4,7 +4,7 @@ module.exports = {
     script: 'index.js',
     max_memory_restart: '1G',
     cron_restart: '0 */24 * * *',
-    watch: '.',
+    // watch: './src',
     ignore_watch: ['node_modules', 'package-lock.json', 'uploads'],
     watch_delay: 1000,
     restart_delay: 20000,
